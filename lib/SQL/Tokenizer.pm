@@ -3,7 +3,7 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub tokenize {
     my ( $class, $query ) = @_;
@@ -21,6 +21,8 @@ sub tokenize {
                                  # anything inside single quotes, ungreedy.
             |
             --[\ \t\S]*          # comments
+            |
+            /\*[\ \t\n\S]*?\*/      # C style comments
             |
             [^\s\(\),=;]+        # everything that doesn't matches with above
             |

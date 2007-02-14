@@ -8,5 +8,5 @@ t/00-load.t
 t/01-single-quotes.t
 t/02-double-quotes.t
 t/03-complex.t
-t/pod-coverage.t
+t/04-c-style-comments.t
 t/pod.t
