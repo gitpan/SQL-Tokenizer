@@ -3,32 +3,36 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 sub tokenize {
     my ( $class, $query ) = @_;
 
     my @query = $query =~ m{
         (
-            (?:>=|<=|==)         # >=, <= and == operators
+            (?:>=|<=|==)            # >=, <= and == operators
             |
-            [\(\),=;]             # punctuation (parenthesis, comma)
+            [\(\),=;]               # punctuation (parenthesis, comma)
+            |
+            \'\'(?!\')              # empty single quoted string
+            |
+            \"\"(?!\"")             # empty double quoted string
             |
             ".*?(?:(?:""){1,}"|(?<!["\\])"(?!")|\\"{2})
-                                 # anything inside double quotes, ungreedy
+                                    # anything inside double quotes, ungreedy
             |
             '.*?(?:(?:''){1,}'|(?<!['\\])'(?!')|\\'{2})
-                                 # anything inside single quotes, ungreedy.
+                                    # anything inside single quotes, ungreedy.
             |
-            --[\ \t\S]*          # comments
+            --[\ \t\S]*             # comments
             |
             /\*[\ \t\n\S]*?\*/      # C style comments
             |
-            [^\s\(\),=;]+        # everything that doesn't matches with above
+            [^\s\(\),=;]+           # everything that doesn't matches with above
             |
-            \n                   # newline
+            \n                      # newline
             |
-            [\t\ ]+              # any kind of white spaces
+            [\t\ ]+                 # any kind of white spaces
         )
     }smxgo;
 

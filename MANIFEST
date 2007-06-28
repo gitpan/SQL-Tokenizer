@@ -9,4 +9,6 @@ t/01-single-quotes.t
 t/02-double-quotes.t
 t/03-complex.t
 t/04-c-style-comments.t
+t/05-ansi-comments.t
+t/06-empty.t
 t/pod.t
