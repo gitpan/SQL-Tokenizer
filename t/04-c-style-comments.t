@@ -3,9 +3,7 @@ use warnings;
 
 use Test::More;
 
-BEGIN {
-    use_ok('SQL::Tokenizer');
-}
+use SQL::Tokenizer;
 
 use constant {
     SPACE => ' ',

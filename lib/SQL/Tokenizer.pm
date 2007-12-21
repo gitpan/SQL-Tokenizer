@@ -3,7 +3,7 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 sub tokenize {
     my ( $class, $query ) = @_;

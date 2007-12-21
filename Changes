@@ -6,3 +6,5 @@ Revision history for SQL-Tokenizer
 0.07	
 	- Fixed C style comments.
 
+0.09
+        - Removed use_ok from BEGIN block on tests (Test::More 0.74)

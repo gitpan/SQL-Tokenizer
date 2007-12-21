@@ -11,4 +11,5 @@ t/03-complex.t
 t/04-c-style-comments.t
 t/05-ansi-comments.t
 t/06-empty.t
+t/07-equality-and-math-operators.t
 t/pod.t
