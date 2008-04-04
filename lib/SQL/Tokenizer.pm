@@ -3,40 +3,47 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION = '0.09';
+our $VERSION= '0.10';
+
+my $re= qr{
+    (
+        --[\ \t\S]*             # comments
+        |
+     	(?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^)      
+								# operators and tests
+        |
+        [\(\),=;]               # punctuation (parenthesis, comma)
+        |
+        \'\'(?!\')              # empty single quoted string
+        |
+        \"\"(?!\"")             # empty double quoted string
+        |
+        ".*?(?:(?:""){1,}"|(?<!["\\])"(?!")|\\"{2})
+                                # anything inside double quotes, ungreedy
+        |
+        '.*?(?:(?:''){1,}'|(?<!['\\])'(?!')|\\'{2})
+                                # anything inside single quotes, ungreedy.
+        |
+        /\*[\ \t\n\S]*?\*/      # C style comments
+        |
+        [^\s\(\),=;]+           # everything that doesn't matches with above
+        |
+        \n                      # newline
+        |
+        [\t\ ]+                 # any kind of white spaces
+    )	
+}smx;
 
 sub tokenize {
-    my ( $class, $query ) = @_;
+    my ( $class, $query, $remove_white_tokens )= @_;
 
-    my @query = $query =~ m{
-        (
-            (?:>=|<=|==)            # >=, <= and == operators
-            |
-            [\(\),=;]               # punctuation (parenthesis, comma)
-            |
-            \'\'(?!\')              # empty single quoted string
-            |
-            \"\"(?!\"")             # empty double quoted string
-            |
-            ".*?(?:(?:""){1,}"|(?<!["\\])"(?!")|\\"{2})
-                                    # anything inside double quotes, ungreedy
-            |
-            '.*?(?:(?:''){1,}'|(?<!['\\])'(?!')|\\'{2})
-                                    # anything inside single quotes, ungreedy.
-            |
-            --[\ \t\S]*             # comments
-            |
-            /\*[\ \t\n\S]*?\*/      # C style comments
-            |
-            [^\s\(\),=;]+           # everything that doesn't matches with above
-            |
-            \n                      # newline
-            |
-            [\t\ ]+                 # any kind of white spaces
-        )
-    }smxgo;
+    my @query= $query =~ m{$re}smxg;
 
-    return @query;
+    if ($remove_white_tokens) {
+        @query= grep( !/^[\s\n\r]*$/, @query );
+    }
+
+    return wantarray ? @query : \@query;
 }
 
 1;
@@ -82,10 +89,17 @@ like the one below should not be a problem:
 
 =item tokenizer
 
- my @tokens = SQL::Tokenizer->tokenize($query);
+	my @tokens= SQL::Tokenizer->tokenize($query);
+	my $tokens= SQL::Tokenizer->tokenize($query);
+
+	$tokens= SQL::Tokenizer->tokenize( $query, $remove_white_tokens );
 
 This is the only available method. It receives a SQL query, and returns an
-array of tokens.
+array of tokens if called in list context, or an arrayref if called in scalar
+context.
+
+If C<$remove_white_tokens> is true, white spaces only tokens will be removed from
+result.
 
 =back
 

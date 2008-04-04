@@ -2,8 +2,6 @@ Changes
 lib/SQL/Tokenizer.pm
 Makefile.PL
 MANIFEST
-MANIFEST.bak
-MANIFEST.SKIP
 META.yml			# Will be created by "make dist"
 README
 t/00-load.t
@@ -14,5 +12,4 @@ t/04-c-style-comments.t
 t/05-ansi-comments.t
 t/06-empty.t
 t/07-equality-and-math-operators.t
-t/08-remove-white-tokens.t
 t/pod.t
