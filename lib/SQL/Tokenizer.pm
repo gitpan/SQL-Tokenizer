@@ -3,16 +3,16 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION= '0.10';
+our $VERSION= '0.11';
 
 my $re= qr{
     (
-        --[\ \t\S]*             # comments
+        (?:--|\#)[\ \t\S]*      # single line comments
         |
-     	(?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^)      
-								# operators and tests
+        (?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^)      
+                                # operators and tests
         |
-        [\(\),=;]               # punctuation (parenthesis, comma)
+        [\(\),;]               # punctuation (parenthesis, comma)
         |
         \'\'(?!\')              # empty single quoted string
         |
@@ -26,12 +26,12 @@ my $re= qr{
         |
         /\*[\ \t\n\S]*?\*/      # C style comments
         |
-        [^\s\(\),=;]+           # everything that doesn't matches with above
-        |
+		:?(?:\w+\.)?\w+			# words, and standard named placeholders
+		|
         \n                      # newline
         |
         [\t\ ]+                 # any kind of white spaces
-    )	
+    )   
 }smx;
 
 sub tokenize {
@@ -89,10 +89,10 @@ like the one below should not be a problem:
 
 =item tokenizer
 
-	my @tokens= SQL::Tokenizer->tokenize($query);
-	my $tokens= SQL::Tokenizer->tokenize($query);
+    my @tokens= SQL::Tokenizer->tokenize($query);
+    my $tokens= SQL::Tokenizer->tokenize($query);
 
-	$tokens= SQL::Tokenizer->tokenize( $query, $remove_white_tokens );
+    $tokens= SQL::Tokenizer->tokenize( $query, $remove_white_tokens );
 
 This is the only available method. It receives a SQL query, and returns an
 array of tokens if called in list context, or an arrayref if called in scalar
@@ -102,6 +102,10 @@ If C<$remove_white_tokens> is true, white spaces only tokens will be removed fro
 result.
 
 =back
+
+=head1 ACKNOWLEDGEMENTS
+
+Evan Harris, for implementing Shell comment style and SQL operators.
 
 =head1 AUTHOR
 

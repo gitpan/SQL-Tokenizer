@@ -15,4 +15,6 @@ t/05-ansi-comments.t
 t/06-empty.t
 t/07-equality-and-math-operators.t
 t/08-remove-white-tokens.t
+t/09-shell-style-comments.t
+t/10-sql-operators.t
 t/pod.t
