@@ -3,7 +3,7 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION= '0.11';
+our $VERSION= '0.12';
 
 my $re= qr{
     (
@@ -26,7 +26,7 @@ my $re= qr{
         |
         /\*[\ \t\n\S]*?\*/      # C style comments
         |
-		:?(?:\w+\.)?\w+			# words, and standard named placeholders
+		:?(?:\w+\.)*(?:\w+|\*)	# words, standard named placeholders, db.table.*, db.*
 		|
         \n                      # newline
         |

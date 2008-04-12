@@ -1,5 +1,6 @@
 Changes
 lib/SQL/Tokenizer.pm
+Makefile.PL
 MANIFEST
 MANIFEST.bak
 MANIFEST.SKIP
