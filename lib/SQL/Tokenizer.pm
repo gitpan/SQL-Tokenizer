@@ -3,13 +3,13 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION= '0.12';
+our $VERSION= '0.13';
 
 my $re= qr{
     (
         (?:--|\#)[\ \t\S]*      # single line comments
         |
-        (?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^)      
+        (?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^|\?)      
                                 # operators and tests
         |
         [\(\),;]               # punctuation (parenthesis, comma)

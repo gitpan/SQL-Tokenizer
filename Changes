@@ -1,5 +1,8 @@
 Revision history for SQL-Tokenizer
 
+0.13
+	- quote mark wasn't being properly tokenized (fixes DBIx::Placeholder::Named dependency).
+	
 0.12
 	- fixed #34889.
 	

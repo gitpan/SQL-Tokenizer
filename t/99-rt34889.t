@@ -29,7 +29,6 @@ my @tests= (
         query       => q{SELECT db.table.* FROM db.table},
         wanted      => [ 'SELECT', SPACE, 'db.table.*', SPACE, 'FROM', SPACE, 'db.table' ],
     },
-
 );
 
 plan tests => scalar @tests;
