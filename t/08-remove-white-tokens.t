@@ -5,7 +5,9 @@ use Test::More;
 
 use SQL::Tokenizer;
 
-use constant { COMMA => ',', };
+use constant SPACE => ' ';
+use constant COMMA => ',';
+use constant NL    => "\n";
 
 my $query;
 my @query;
