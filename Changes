@@ -1,5 +1,8 @@
 Revision history for SQL-Tokenizer
 
+0.15
+	- doesn't eat `@' anymore.
+
 0.14
 	- tests passes now in 5.6.2.
 

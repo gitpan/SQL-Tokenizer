@@ -26,6 +26,19 @@ my @tests= (
         description => q{Selecting all fields from db.table},
         query       => q{SELECT db.table.* FROM db.table},
         wanted      => [ 'SELECT', SPACE, 'db.table.*', SPACE, 'FROM', SPACE, 'db.table' ],
+    }, {
+        description => q{Storing to a variable},
+        query       => q{SELECT @id = column FROM db.table},
+        wanted =>
+          [ 'SELECT', SPACE, '@id', SPACE, '=', SPACE, 'column', SPACE, 'FROM', SPACE, 'db.table' ],
+    }, {
+        description => q{Declare a variable},
+        query       => q{DECLARE @id INT},
+        wanted      => [ 'DECLARE', SPACE, '@id', SPACE, 'INT' ],
+    }, {
+        description => q{Declare a variable with two @},
+        query       => q{DECLARE @@id INT},
+        wanted      => [ 'DECLARE', SPACE, '@@id', SPACE, 'INT' ],
     },
 );
 

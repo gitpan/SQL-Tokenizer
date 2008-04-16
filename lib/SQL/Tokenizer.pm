@@ -3,7 +3,7 @@ package SQL::Tokenizer;
 use warnings;
 use strict;
 
-our $VERSION= '0.14';
+our $VERSION= '0.15';
 
 my $re= qr{
     (
@@ -12,7 +12,7 @@ my $re= qr{
         (?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^|\?)      
                                 # operators and tests
         |
-        [\(\),;]               # punctuation (parenthesis, comma)
+        [\(\),;]                # punctuation (parenthesis, comma)
         |
         \'\'(?!\')              # empty single quoted string
         |
@@ -26,8 +26,9 @@ my $re= qr{
         |
         /\*[\ \t\n\S]*?\*/      # C style comments
         |
-		:?(?:\w+\.)*(?:\w+|\*)	# words, standard named placeholders, db.table.*, db.*
-		|
+        (?:[\w:@]+(?:\.(?:\w+|\*))*)
+                                # words, standard named placeholders, db.table.*, db.*
+        |
         \n                      # newline
         |
         [\t\ ]+                 # any kind of white spaces
@@ -106,10 +107,12 @@ result.
 =head1 ACKNOWLEDGEMENTS
 
 Evan Harris, for implementing Shell comment style and SQL operators.
+Charlie Hills, for spotting a lot of important issues I haven't thought.
 
 =head1 AUTHOR
 
-Copyright (c) 2007, Igor Sutton Lopes "<IZUT@cpan.org>". All rights reserved.
+Copyright (c) 2007, 2008 Igor Sutton Lopes "<IZUT@cpan.org>". All rights
+reserved.
 
 This module is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
