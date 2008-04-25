@@ -39,7 +39,11 @@ my @tests= (
         description => q{Declare a variable with two @},
         query       => q{DECLARE @@id INT},
         wanted      => [ 'DECLARE', SPACE, '@@id', SPACE, 'INT' ],
-    },
+    }, {
+        description => q{SQL full notation for DATABASE.SCHEMA.TABLE},
+        query       => q{SELECT SUM(column) FROM database..table},
+        wanted      => [ 'SELECT', SPACE, 'SUM', '(', 'column', ')', SPACE,'FROM', SPACE, 'database..table' ],
+	},
 );
 
 plan tests => scalar @tests;

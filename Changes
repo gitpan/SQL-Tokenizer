@@ -1,5 +1,9 @@
 Revision history for SQL-Tokenizer
 
+0.16
+	- now supports database.schema.table dialect.
+	- required at least 5.6.2.
+
 0.15
 	- doesn't eat `@' anymore.
 
