@@ -11,7 +11,7 @@ our @ISA = qw(Exporter);
 
 our @EXPORT_OK= qw(tokenize_sql);
 
-our $VERSION= '0.18';
+our $VERSION= '0.19';
 
 my $re= qr{
     (
@@ -20,7 +20,7 @@ my $re= qr{
         (?:<>|<=>|>=|<=|==|=|!=|!|<<|>>|<|>|\|\||\||&&|&|-|\+|\*(?!/)|/(?!\*)|\%|~|\^|\?)
                                 # operators and tests
         |
-        [\[\]\(\),;]            # punctuation (parenthesis, comma)
+        [\[\]\(\),;.]            # punctuation (parenthesis, comma)
         |
         \'\'(?!\')              # empty single quoted string
         |
@@ -28,6 +28,9 @@ my $re= qr{
         |
         ".*?(?:(?:""){1,}"|(?<!["\\])"(?!")|\\"{2})
                                 # anything inside double quotes, ungreedy
+		|
+        `.*?(?:(?:``){1,}`|(?<![`\\])`(?!`)|\\`{2})
+                                # anything inside backticks quotes, ungreedy
         |
         '.*?(?:(?:''){1,}'|(?<!['\\])'(?!')|\\'{2})
                                 # anything inside single quotes, ungreedy.
@@ -143,6 +146,10 @@ Evan Harris, for implementing Shell comment style and SQL operators.
 =item
 
 Charlie Hills, for spotting a lot of important issues I haven't thought.
+
+=item
+
+Jonas Kramer, for fixing MySQL quoted strings and treating dot as punctuation character correctly.
 
 =back
 
