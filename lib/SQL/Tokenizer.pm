@@ -11,7 +11,7 @@ our @ISA = qw(Exporter);
 
 our @EXPORT_OK= qw(tokenize_sql);
 
-our $VERSION= '0.19';
+our $VERSION= '0.20';
 
 my $re= qr{
     (
@@ -39,6 +39,8 @@ my $re= qr{
         |
         (?:[\w:@]+(?:\.(?:\w+|\*)?)*)
                                 # words, standard named placeholders, db.table.*, db.*
+        |
+        (?:\${1,2})             # dollars
         |
         \n                      # newline
         |
@@ -72,6 +74,8 @@ sub tokenize {
 SQL::Tokenizer - A simple SQL tokenizer.
 
 =head1 VERSION
+
+0.20
 
 =head1 SYNOPSIS
 
@@ -151,11 +155,15 @@ Charlie Hills, for spotting a lot of important issues I haven't thought.
 
 Jonas Kramer, for fixing MySQL quoted strings and treating dot as punctuation character correctly.
 
+=item
+
+Emanuele Zeppieri, for asking to fix SQL::Tokenizer to support dollars as well.
+
 =back
 
 =head1 AUTHOR
 
-Copyright (c) 2007, 2008 Igor Sutton Lopes "<IZUT@cpan.org>". All rights
+Copyright (c) 2007, 2008, 2009, 2010 Igor Sutton Lopes "<IZUT@cpan.org>". All rights
 reserved.
 
 This module is free software; you can redistribute it and/or modify it under
