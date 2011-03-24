@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                SQL-Tokenizer
-version:             0.21
+version:             0.22
 abstract:            A simple SQL tokenizer.
 license:             ~
 author:              

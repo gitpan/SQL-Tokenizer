@@ -11,7 +11,7 @@ our @ISA = qw(Exporter);
 
 our @EXPORT_OK= qw(tokenize_sql);
 
-our $VERSION= '0.21';
+our $VERSION= '0.22';
 
 my $re= qr{
     (
@@ -35,7 +35,7 @@ my $re= qr{
         '.*?(?:(?:''){1,}'|(?<!['\\])'(?!')|\\'{2})
                                 # anything inside single quotes, ungreedy.
         |
-        /\*[\ \t\n\S]*?\*/      # C style comments
+        /\*[\ \t\r\n\S]*?\*/      # C style comments
         |
         (?:[\w:@]+(?:\.(?:\w+|\*)?)*)
                                 # words, standard named placeholders, db.table.*, db.*
@@ -163,6 +163,10 @@ Emanuele Zeppieri, for asking to fix SQL::Tokenizer to support dollars as well.
 =item
 
 Nigel Metheringham, for extending the dollar signal support.
+
+=item
+
+Devin Withers, for making it not choke on CR+LF in comments.
 
 =back
 
